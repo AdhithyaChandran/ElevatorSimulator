@@ -53,6 +53,11 @@ public class Car {
         if(getOverloadFlag()==1){
             loadCheck(generateRandomLoad());
         }
+        try{
+        Thread.sleep(3000);
+        }catch(InterruptedException e){
+            System.out.println("Exception : "+e);
+        }
     }
     public void close(){
         System.out.println("Door Closes...");
@@ -130,7 +135,11 @@ public class Car {
 
     }
 
-    public void addNewRequest(){
-
+    public void start(){
+        open();
+        int load = generateRandomLoad();
+        loadCheck(load);
+        PriorityQueue<InternalRequest> internalRequests = getProcessor().getRequests(getCurrentfloor());
+        moveTo(internalRequests);
     }
 }

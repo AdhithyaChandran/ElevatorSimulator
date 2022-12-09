@@ -20,10 +20,6 @@ public class Elevator {
     public void start(){
         System.out.println("Elevator Starts...");
         Car car = new Car();
-        car.open();
-        int load = car.generateRandomLoad();
-        car.loadCheck(load);
-        PriorityQueue<InternalRequest> internalRequests = car.getProcessor().getRequests(car.getCurrentfloor());
-        car.moveTo(internalRequests);
+        car.start();
 }
 }
