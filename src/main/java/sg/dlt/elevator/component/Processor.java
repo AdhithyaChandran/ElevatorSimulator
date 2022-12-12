@@ -10,7 +10,6 @@ public class Processor implements Comparator<InternalRequest>{
     public PriorityQueue<InternalRequest> getRequests(int currentfloor){
         PriorityQueue<InternalRequest> Pqueue = new PriorityQueue<>(5,new Processor());
         Scanner sc = new Scanner(System.in);
-        List<InternalRequest> internalRequests = new ArrayList();
         boolean inputFlag = true;
         int destinationfloor;
 
@@ -22,29 +21,13 @@ public class Processor implements Comparator<InternalRequest>{
                 inputFlag = false;
             else{
                 InternalRequest internalRequest = new InternalRequest(currentfloor, destinationfloor, (int) System.nanoTime());
-                internalRequests.add(internalRequest);
                 Pqueue.add(internalRequest);
             }
         }
-
-       //return prioritisedRequests(Pqueue);
         return Pqueue;
     }
 
 
-    //fot test
-    public void getPriorityQueue(){
-
-    }
-
-    public Set<InternalRequest> prioritisedRequests(PriorityQueue internalRequests){
-        Set<InternalRequest> prioritisedRequests = new LinkedHashSet<>();
-        while(!internalRequests.isEmpty())
-            prioritisedRequests.add((InternalRequest) internalRequests.remove());
-        for(InternalRequest prioritisedRequest : prioritisedRequests)
-            System.out.println(prioritisedRequest.getDestinationFloor());
-        return  prioritisedRequests;
-    }
 
     @Override
 
@@ -54,6 +37,10 @@ public class Processor implements Comparator<InternalRequest>{
         else if((a.getDestinationFloor()-a.getCurrentfloor())<(b.getDestinationFloor()-a.getCurrentfloor()))
             return-1;
         return 0;
+    }
+
+    public void decideFloor(){
+
     }
 
 }

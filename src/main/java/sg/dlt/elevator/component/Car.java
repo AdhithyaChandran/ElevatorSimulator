@@ -11,15 +11,6 @@ public class Car {
 
     private int currentfloor;
 
-    private int overloadFlag;
-
-    public int getOverloadFlag() {
-        return overloadFlag;
-    }
-
-    public void setOverloadFlag(int overloadFlag) {
-        this.overloadFlag = overloadFlag;
-    }
 
     private Processor processor;
 
@@ -50,9 +41,6 @@ public class Car {
 
     public void open(){
         System.out.println("Door Opens...");
-        if(getOverloadFlag()==1){
-            loadCheck(generateRandomLoad());
-        }
         try{
         Thread.sleep(3000);
         }catch(InterruptedException e){
@@ -69,10 +57,9 @@ public class Car {
     }
 
     public void loadCheck(int load){
-        if( generateRandomLoad() > 1050){
+        if(load > 1050){
             System.out.println("Overload...");
-            setOverloadFlag(1);
-            open();
+            loadCheck(generateRandomLoad());
         }
         else
             close();
@@ -81,24 +68,6 @@ public class Car {
 
     public void moveTo(PriorityQueue<InternalRequest> internalRequests){
         Scanner sc = new Scanner(System.in);
-        /*for(InternalRequest internalRequest : internalRequests){
-            while(getCurrentfloor()<internalRequest.getDestinationFloor()){
-                internalRequest.setCurrentfloor(internalRequest.getCurrentfloor()+1);
-                setCurrentFloor(internalRequest.getCurrentfloor());
-                display.display(getCurrentfloor());
-
-            }
-            while(getCurrentfloor()>internalRequest.getDestinationFloor()){
-                internalRequest.setCurrentfloor(internalRequest.getCurrentfloor()-1);
-                setCurrentFloor(internalRequest.getCurrentfloor());
-                display.display(getCurrentfloor());
-            }
-            if(getCurrentfloor()==internalRequest.getDestinationFloor()) {
-                System.out.println("Destination floor :" + internalRequest.getDestinationFloor());
-                System.out.println("Is there any internal input (Y/N)");
-
-            }
-        }*/
         while(!internalRequests.isEmpty()) {
             InternalRequest internalRequest = internalRequests.remove();
             while (getCurrentfloor() < internalRequest.getDestinationFloor()) {
@@ -130,8 +99,9 @@ public class Car {
 
             }
 
-
         }
+
+
 
     }
 
